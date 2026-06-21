@@ -15,16 +15,27 @@ async function seed() {
     await sequelize.authenticate();
     console.log("Database connected successfully!");
 
-    // 1. Dọn dẹp dữ liệu đơn hàng cũ để có dữ liệu thống kê sạch
-    console.log("Cleaning old orders data...");
+    // 1. Kiểm tra xem đã có đơn hàng chưa để tránh xóa đè dữ liệu thực tế
+    const existingOrders = await Order.count();
+    if (existingOrders > 0) {
+      console.log(`ℹ️ Đã có ${existingOrders} đơn hàng trong database. Bỏ qua seeding dữ liệu mẫu.`);
+      process.exit(0);
+    }
+    console.log("Chưa có đơn hàng. Bắt đầu seed dữ liệu mẫu...");
+
+    // Dọn dẹp dữ liệu cũ (đề phòng chạy dở dang bị lỗi ở lần trước)
+    console.log("Dọn dẹp các bảng cũ để đảm bảo dữ liệu đồng bộ...");
     await sequelize.query("SET FOREIGN_KEY_CHECKS = 0;");
     await OrderItem.destroy({ where: {}, truncate: true });
     await Order.destroy({ where: {}, truncate: true });
-    console.log("Cleared orders and order_items tables.");
+    await TourCategory.destroy({ where: {}, truncate: true });
+    await Tour.destroy({ where: {}, truncate: true });
+    await Category.destroy({ where: {}, truncate: true });
+    await sequelize.query("SET FOREIGN_KEY_CHECKS = 1;");
 
     // 2. Kiểm tra/Tạo Danh mục & Tours
     console.log("Checking tours in database...");
-    let tours = await Tour.findAll({ where: { deleted: false } });
+    let tours = [];
     
     if (tours.length === 0) {
       console.log("No tours found. Seeding default tours...");
@@ -116,8 +127,8 @@ async function seed() {
         // Gán danh mục
         const cat = tData.code === "TOURSAPA" || tData.code === "TOURHG" ? cat1 : (tData.code === "TOURDN" ? cat2 : cat3);
         await TourCategory.create({
-          tourId: createdTour.id,
-          categoryId: cat.id
+          tour_id: createdTour.id,
+          category_id: cat.id
         });
       }
       console.log(`Seeded ${tours.length} tours successfully!`);
