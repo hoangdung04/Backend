@@ -147,8 +147,9 @@ export const index = async (req, res) => {
         });
 
         const origin = req.headers.origin || "http://localhost:5173";
+        const payosOrderCode = orderId * 10000 + (Date.now() % 10000);
         const paymentData = {
-          orderCode: orderId,
+          orderCode: payosOrderCode,
           amount: totalAmount,
           description: `Thanh toan don ${code}`.slice(0, 25),
           cancelUrl: `${origin}/order/history`,
