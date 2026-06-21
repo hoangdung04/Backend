@@ -16,12 +16,13 @@ async function seed() {
     console.log("Database connected successfully!");
 
     // 1. Kiểm tra xem đã có đơn hàng chưa để tránh xóa đè dữ liệu thực tế
+    const force = process.argv.includes("--force");
     const existingOrders = await Order.count();
-    if (existingOrders > 0) {
-      console.log(`ℹ️ Đã có ${existingOrders} đơn hàng trong database. Bỏ qua seeding dữ liệu mẫu.`);
+    if (existingOrders > 0 && !force) {
+      console.log(`ℹ️ Đã có ${existingOrders} đơn hàng trong database. Bỏ qua seeding dữ liệu mẫu. Dùng flag --force để bắt buộc nạp lại.`);
       process.exit(0);
     }
-    console.log("Chưa có đơn hàng. Bắt đầu seed dữ liệu mẫu...");
+    console.log("Bắt đầu nạp dữ liệu mẫu...");
 
     // Dọn dẹp dữ liệu cũ (đề phòng chạy dở dang bị lỗi ở lần trước)
     console.log("Dọn dẹp các bảng cũ để đảm bảo dữ liệu đồng bộ...");
@@ -59,7 +60,7 @@ async function seed() {
           code: "TOURSAPA",
           price: 3200000,
           discount: 10,
-          images: JSON.stringify(["https://res.cloudinary.com/doxfnr55c/image/upload/v1716301234/sapa.jpg"]),
+          images: JSON.stringify(["https://images.unsplash.com/photo-1524413840003-05151b1408a5?w=600"]), // Sapa
           information: "Khám phá bản Cát Cát, thung lũng Mường Hoa, đỉnh Fansipan.",
           schedule: "Ngày 1: Hà Nội - Sapa. Ngày 2: Chinh phục Fansipan. Ngày 3: Sapa - Hà Nội.",
           timeStart: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
@@ -72,7 +73,7 @@ async function seed() {
           code: "TOURHG",
           price: 4500000,
           discount: 15,
-          images: JSON.stringify(["https://res.cloudinary.com/doxfnr55c/image/upload/v1716301235/hagiang.jpg"]),
+          images: JSON.stringify(["https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600"]), // Hà Giang
           information: "Ngắm hoa tam giác mạch, chinh phục đèo Mã Pí Lèng, cột cờ Lũng Cú.",
           schedule: "Ngày 1: Hà Nội - Quản Bạ. Ngày 2: Đồng Văn - Lũng Cú. Ngày 3: Mèo Vạc - Mã Pí Lèng. Ngày 4: Trở về.",
           timeStart: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000),
@@ -85,7 +86,7 @@ async function seed() {
           code: "TOURDN",
           price: 5200000,
           discount: 5,
-          images: JSON.stringify(["https://res.cloudinary.com/doxfnr55c/image/upload/v1716301236/danang.jpg"]),
+          images: JSON.stringify(["https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600"]), // Đà Nẵng
           information: "Vui chơi Bà Nà Hills, check-in Cầu Vàng, dạo phố cổ Hội An.",
           schedule: "Ngày 1: Đón sân bay - Hội An. Ngày 2: Bà Nà Hills - Cầu Vàng. Ngày 3: Bán đảo Sơn Trà - Tiễn khách.",
           timeStart: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
@@ -98,7 +99,7 @@ async function seed() {
           code: "TOURPQ",
           price: 6800000,
           discount: 20,
-          images: JSON.stringify(["https://res.cloudinary.com/doxfnr55c/image/upload/v1716301237/phuquoc.jpg"]),
+          images: JSON.stringify(["https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=600"]), // Phú Quốc
           information: "Tắm biển Bãi Sao, lặn ngắm san hô ga An Thới, Safari Phú Quốc.",
           schedule: "Ngày 1: Đón sân bay - Đông đảo. Ngày 2: Nam đảo - Lặn ngắm san hô. Ngày 3: VinWonders - Tiễn sân bay.",
           timeStart: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
@@ -111,7 +112,7 @@ async function seed() {
           code: "TOURHL",
           price: 3900000,
           discount: 10,
-          images: JSON.stringify(["https://res.cloudinary.com/doxfnr55c/image/upload/v1716301238/halong.jpg"]),
+          images: JSON.stringify(["https://images.unsplash.com/photo-1528127269322-539801943592?w=600"]), // Hạ Long
           information: "Nghỉ dưỡng du thuyền 5 sao sang trọng, chèo thuyền kayak, hang Sửng Sốt.",
           schedule: "Ngày 1: Hà Nội - Tuần Châu - Lên tàu. Ngày 2: Hang Sửng Sốt - Hà Nội.",
           timeStart: new Date(Date.now() + 4 * 24 * 60 * 60 * 1000),
