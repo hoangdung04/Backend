@@ -1,0 +1,67 @@
+import { DataTypes } from "sequelize";
+import sequelize from "../config/database.js";
+
+const OrderItem = sequelize.define("OrderItem", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true,
+  },
+  orderId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  tourId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  quantity: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  price: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  discount: {
+    type: DataTypes.INTEGER,
+  },
+  timeStart: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  adultsQuantity: {
+    type: DataTypes.INTEGER,
+    defaultValue: 1,
+  },
+  childrenQuantity: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  toddlersQuantity: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  infantsQuantity: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  visaQuantity: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  singleRoomQuantity: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  seniorsQuantity: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+}, {
+  tableName: 'order_items',
+  timestamps: false,
+});
+
+export default OrderItem;

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Kiến trúc hệ thống Router-based RAG & Chat-to-Action</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+      display: inline-block;
+    }
+    h2 {
+      text-align: center;
+      color: #0f172a;
+      margin-bottom: 30px;
+      font-weight: 700;
+      font-size: 22px;
+    }
+    svg {
+      display: block;
+    }
+    .node-text-title {
+      font-weight: 700;
+      font-size: 13px;
+      fill: #1e293b;
+    }
+    .node-text-sub {
+      font-size: 11px;
+      fill: #64748b;
+    }
+    .arrow-text {
+      font-size: 11px;
+      fill: #ef4444;
+      font-weight: 500;
+    }
+    .arrow-text-green {
+      font-size: 11px;
+      fill: #10b981;
+      font-weight: 500;
+    }
+    /* Hover effects for interactive premium feel */
+    rect {
+      transition: all 0.3s ease;
+    }
+    rect:hover {
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.08));
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Sơ đồ Kiến trúc hệ thống Router-based RAG & Chat-to-Action (Tour Chatbot)</h2>
+  
+  <svg width="760" height="740" viewBox="0 0 760 740" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Grid Background -->
+    <defs>
+      <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f1f5f9" stroke-width="1"/>
+      </pattern>
+      <!-- Drop shadow filter -->
+      <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+        <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.06"/>
+      </filter>
+      <!-- Arrow markers -->
+      <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94a3b8"/>
+      </marker>
+      <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#ef4444"/>
+      </marker>
+      <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981"/>
+      </marker>
+    </defs>
+    
+    <rect width="760" height="740" fill="url(#grid)" rx="8" />
+
+    <!-- 1. Tin nhắn khách hàng -->
+    <g filter="url(#shadow)">
+      <rect x="230" y="20" width="300" height="50" rx="25" fill="#e0f2fe" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="380" y="49" text-anchor="middle" font-family="'Inter'" font-size="14" font-weight="600" fill="#0369a1">Tin nhắn khách hàng</text>
+    </g>
+    
+    <!-- Arrow 1 -> 2 -->
+    <path d="M 380 70 L 380 110" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- 2. Tầng 1 -->
+    <g filter="url(#shadow)">
+      <rect x="180" y="112" width="400" height="60" rx="8" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.5"/>
+      <text x="380" y="137" text-anchor="middle" class="node-text-title">Tầng 1: Phân tích Ý định & Ngữ cảnh</text>
+      <text x="380" y="154" text-anchor="middle" class="node-text-sub">(isFollowUpQuestion & Gemini API / Regex Fallback)</text>
+    </g>
+
+    <!-- Arrow 2 -> 3 -->
+    <path d="M 380 172 L 380 206" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="390" y="194" font-family="'Inter'" font-size="11" font-weight="500" fill="#64748b">Trả về ý định & tham số</text>
+
+    <!-- 3. Tầng 2 -->
+    <g filter="url(#shadow)">
+      <rect x="180" y="212" width="400" height="60" rx="8" fill="#faf5ff" stroke="#e9d5ff" stroke-width="1.5"/>
+      <text x="380" y="237" text-anchor="middle" class="node-text-title">Tầng 2: Action Router (Backend điều phối logic)</text>
+      <text x="380" y="254" text-anchor="middle" class="node-text-sub">(Điều hướng truy vấn hoặc tối ưu tài nguyên)</text>
+    </g>
+
+    <!-- Branch Arrows from Tầng 2 -->
+    <!-- Left Branch (Database RAG) -->
+    <path d="M 280 272 L 280 340" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-red)"/>
+    <text x="170" y="305" class="arrow-text">Tìm kiếm / Hỏi nối tiếp</text>
+    <text x="170" y="320" class="arrow-text">(tours + articles)</text>
+
+    <!-- Right Branch (Bỏ qua DB) -->
+    <path d="M 480 272 L 480 340" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)"/>
+    <text x="490" y="305" class="arrow-text-green">Trò chuyện xã giao / Chào hỏi</text>
+    <text x="490" y="320" class="arrow-text-green">(Bỏ qua database)</text>
+
+    <!-- 4. Left Node: Query DB -->
+    <g filter="url(#shadow)">
+      <rect x="110" y="342" width="220" height="66" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+      <text x="220" y="368" text-anchor="middle" class="node-text-title" fill="#991b1b">Query MySQL Database</text>
+      <text x="220" y="386" text-anchor="middle" class="node-text-sub" fill="#b91c1c">(Bảng tours & articles)</text>
+    </g>
+
+    <!-- 5. Right Node: Bỏ qua DB -->
+    <g filter="url(#shadow)">
+      <rect x="430" y="342" width="220" height="66" rx="8" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.5"/>
+      <text x="540" y="368" text-anchor="middle" class="node-text-title" fill="#065f46">Bỏ qua Database</text>
+      <text x="540" y="386" text-anchor="middle" class="node-text-sub" fill="#047857">(Tối ưu hóa tài nguyên hệ thống)</text>
+    </g>
+
+    <!-- Arrows merging down -->
+    <!-- Left to Gom Context -->
+    <path d="M 220 408 L 220 460 L 320 460" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-red)"/>
+    <!-- Right to Gom Context -->
+    <path d="M 540 408 L 540 514 L 392 514" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+    <!-- 6. Gom Context (RAG only) -->
+    <g filter="url(#shadow)">
+      <rect x="325" y="432" width="110" height="50" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="380" y="461" text-anchor="middle" font-family="'Inter'" font-size="12" font-weight="600" fill="#475569">Gom Context</text>
+    </g>
+    
+    <path d="M 380 482 L 380 500" stroke="#94a3b8" stroke-width="2"/>
+
+    <!-- 7. Tầng 3 -->
+    <g filter="url(#shadow)">
+      <rect x="180" y="504" width="400" height="60" rx="8" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1.5"/>
+      <text x="380" y="529" text-anchor="middle" class="node-text-title">Tầng 3: NLG Response Generation (Sinh phản hồi)</text>
+      <text x="380" y="546" text-anchor="middle" class="node-text-sub">(Gemini AI / Groq API / Database Fallback)</text>
+    </g>
+
+    <!-- Arrow 7 -> Output -->
+    <path d="M 380 564 L 380 600" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="390" y="586" font-family="'Inter'" font-size="11" font-weight="500" fill="#64748b">Trả về chuỗi JSON</text>
+
+    <!-- 8. Output [Frontend] -->
+    <g filter="url(#shadow)">
+      <rect x="130" y="604" width="500" height="70" rx="8" fill="#fff7ed" stroke="#ffedd5" stroke-width="1.5"/>
+      <text x="380" y="630" text-anchor="middle" font-family="'Inter'" font-size="13" font-weight="700" fill="#c2410c">[Frontend: Kết xuất tin nhắn + Thẻ Tour dạng ngang]</text>
+      <text x="380" y="650" text-anchor="middle" font-family="'Inter'" font-size="11" font-weight="500" fill="#c2410c">(Nút "Đặt tour" trực tiếp tích hợp giỏ hàng localStorage - Chat-to-Action)</text>
+    </g>
+
+  </svg>
+</div>
+
+</body>
+</html>

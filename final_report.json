@@ -1,0 +1,357 @@
+{
+  "total": 50,
+  "passed": 50,
+  "accuracy": "100.000%",
+  "report": [
+    {
+      "input": "Tìm tour Đà Nẵng dưới 3 triệu",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Chào bạn! Mình tìm thấy tour 'Đà Nẵng - Ngũ Hành Sơn - Hội An' (3 ngày 2 đêm) giá chỉ 2.500.000 VNĐ. Tour này đang còn nhận đăng ký. Chi tiết tại /tours/detail/tour-da-nang-ngu-hanh-son-hoi-an nhé!",
+      "result": "PASS"
+    },
+    {
+      "input": "Tư vấn tour đi Sapa cho gia đình",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Dạ chào bạn, tour 'Khám phá Sa Pa - Bản Cát Cát - Fansipan' (3 ngày 2 đêm) rất phù hợp cho gia đình. Khởi hành ngày 18/06/2026 từ Hà Nội, giá ưu đãi 3.200.000 VNĐ/người. Chi tiết tại /tours/detail/kham-pha-sa-pa-cat-cat.",
+      "result": "PASS"
+    },
+    {
+      "input": "Giá tour Phú Quốc khoảng 5 triệu",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Chào bạn, với ngân sách khoảng 5 triệu, mình gợi ý tour 'Phú Quốc 3 ngày 2 đêm - Trọn gói cáp treo Hòn Thơm' giá 4.800.000 VNĐ. Tour khởi hành định kỳ mỗi thứ 6. Chi tiết xem tại /tours/detail/phu-quoc-cap-treo.",
+      "result": "PASS"
+    },
+    {
+      "input": "Có tour đi Cát Bà tuần này không?",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Dạ có ạ! Tour 'Du thuyền vịnh Lan Hạ - Đảo Cát Bà' (2 ngày 1 đêm) khởi hành thứ 7 tuần này. Giá ưu đãi giảm 10% còn 2.900.000 VNĐ. Link xem chi tiết: /tours/detail/du-thuyen-lan-ha-cat-ba.",
+      "result": "PASS"
+    },
+    {
+      "input": "Tour Hà Giang 3 ngày 2 đêm giá bao nhiêu",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Dạ tour 'Vòng cung Hà Giang - Đồng Văn - Lũng Cú' (3 ngày 2 đêm) bằng xe du lịch trọn gói có giá là 2.850.000 VNĐ/người. Bạn tham khảo lịch trình chi tiết tại /tours/detail/vong-cung-ha-giang.",
+      "result": "PASS"
+    },
+    {
+      "input": "Tìm tour đi Hàn Quốc mùa thu",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Chào bạn, hệ thống hiện có tour 'Seoul - Đảo Nami - Công viên Everland' (5 ngày 4 đêm) mùa thu giá 14.900.000 VNĐ. Bạn tham khảo thông tin làm visa và chi tiết tại /tours/detail/tour-han-quoc-seoul.",
+      "result": "PASS"
+    },
+    {
+      "input": "Tôi muốn đi du lịch Nha Trang từ Hà Nội",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Dạ tour 'Nha Trang Biển Gọi - VinWonders' (4 ngày 3 đêm) bay từ Hà Nội trọn gói vé máy bay khứ hồi có giá tốt nhất là 5.900.000 VNĐ. Chi tiết xem tại /tours/detail/nha-trang-bien-goi.",
+      "result": "PASS"
+    },
+    {
+      "input": "Có tour miền Tây nào khởi hành ngày mai không?",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Chào bạn, tour 'Miền Tây sông nước: Mỹ Tho - Bến Tre - Cần Thơ' (2 ngày 1 đêm) khởi hành vào 7:00 sáng mai vẫn còn trống 2 chỗ cuối. Giá chỉ 1.350.000 VNĐ. Chi tiết tại /tours/detail/mien-tay-song-nuoc.",
+      "result": "PASS"
+    },
+    {
+      "input": "Tư vấn tour Đà Lạt 2 người",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Dạ chào bạn, với nhóm 2 người, tour 'Đà Lạt - Thành phố ngàn hoa' (3 ngày 3 đêm) khởi hành xe giường nằm từ TP.HCM rất phù hợp. Giá vé lẻ là 2.100.000 VNĐ/khách. Link chi tiết: /tours/detail/da-lat-ngan-hoa.",
+      "result": "PASS"
+    },
+    {
+      "input": "Tour đi Vịnh Hạ Long giá rẻ",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Chào bạn, mình có tour ghép 'Vịnh Hạ Long 1 ngày' đi tàu thăm vịnh 6 tiếng trọn gói ăn trưa hải sản chỉ 850.000 VNĐ/người. Chi tiết tại /tours/detail/ha-long-1-ngay.",
+      "result": "PASS"
+    },
+    {
+      "input": "Tìm tour đi Quy Nhơn dưới 4 tr",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Dạ tour 'Quy Nhơn - Kỳ Co - Eo Gió' (3 ngày 2 đêm) trọn gói khách sạn 3 sao có giá sau giảm là 3.800.000 VNĐ (dưới 4 triệu). Link chi tiết: /tours/detail/quy-nhon-ky-co-eo-gio.",
+      "result": "PASS"
+    },
+    {
+      "input": "Có tour tham quan Tràng An Bái Đính không?",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Dạ có ạ! Tour 'Ninh Bình: Bái Đính - Tràng An - Hang Múa' khởi hành hàng ngày từ Hà Nội, đi về trong ngày. Giá trọn gói vé đò và ăn trưa là 990.000 VNĐ. Chi tiết xem tại /tours/detail/bai-dinh-trang-an.",
+      "result": "PASS"
+    },
+    {
+      "input": "Tư vấn tour du lịch Sa Pa 2 ngày 1 đêm",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Dạ tour 'Sa Pa Cát Cát - Hàm Rồng' (2 ngày 1 đêm) giá chỉ 1.950.000 VNĐ đã bao gồm xe giường nằm khứ hồi Hà Nội - Sa Pa và khách sạn. Chi tiết: /tours/detail/sa-pa-2n1d.",
+      "result": "PASS"
+    },
+    {
+      "input": "Giá tour đi Fansipan",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Dạ tour 'Chinh phục đỉnh Fansipan' kết hợp thăm Bản Cát Cát có giá trọn gói 3.500.000 VNĐ, đã bao gồm vé cáp treo khứ hồi Fansipan trị giá 850.000 VNĐ. Link: /tours/detail/chinh-phuc-fansipan.",
+      "result": "PASS"
+    },
+    {
+      "input": "Tour đi Mộc Châu có khuyến mãi gì không?",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Dạ tour 'Mộc Châu mùa hoa cải - Thác Dải Yếm' (2 ngày 1 đêm) đang áp dụng ưu đãi giảm 15%, giá gốc 1.800.000 VNĐ giảm còn 1.530.000 VNĐ/người. Chi tiết: /tours/detail/moc-chau-mua-hoa.",
+      "result": "PASS"
+    },
+    {
+      "input": "Tìm tour du lịch miền Trung",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Chào bạn, mình gợi ý tour liên tuyến miền Trung: 'Đà Nẵng - Hội An - Huế - Phong Nha' (4 ngày 3 đêm) giá trọn gói 5.400.000 VNĐ. Link xem chi tiết: /tours/detail/lien-tuyen-mien-trung.",
+      "result": "PASS"
+    },
+    {
+      "input": "Có tour du lịch nước ngoài không?",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Dạ bên mình có các tour Đông Nam Á và Đông Á nổi bật như: Tour Thái Lan giá 6.800.000 VNĐ, Tour Singapore - Malaysia giá 12.500.000 VNĐ, Tour Hàn Quốc giá 14.900.000 VNĐ. Bạn quan tâm khu vực nào để mình tư vấn chi tiết hơn ạ?",
+      "result": "PASS"
+    },
+    {
+      "input": "Tư vấn tour đi Thái Lan tầm 7 triệu",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Chào bạn, với tầm 7 triệu, tour 'Bangkok - Pattaya' (5 ngày 4 đêm) bay VietJet trọn gói chỉ có giá 6.790.000 VNĐ rất phù hợp. Bạn tham khảo lịch trình tại /tours/detail/bangkok-pattaya.",
+      "result": "PASS"
+    },
+    {
+      "input": "Xin chào",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ xin chào! Mình là chatbot hỗ trợ đặt tour của website. Bạn cần mình tìm kiếm tour du lịch hay tư vấn thông tin gì ạ?",
+      "result": "PASS"
+    },
+    {
+      "input": "Hello",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Hi there! Chào bạn, mình có thể giúp gì cho bạn trong việc tìm kiếm tour hoặc đọc cẩm nang du lịch hôm nay?",
+      "result": "PASS"
+    },
+    {
+      "input": "Bạn là ai?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Mình là trợ lý ảo hỗ trợ khách hàng của hệ thống Tour Management. Mình hỗ trợ bạn tìm kiếm lịch trình, giá cả các tour và thông tin du lịch trên website.",
+      "result": "PASS"
+    },
+    {
+      "input": "Chatbot có thể giúp gì cho mình?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Mình có thể hỗ trợ bạn tìm kiếm các tour theo điểm đến, ngân sách, thời gian, giới thiệu cẩm nang du lịch và hướng dẫn các thao tác trên website đặt tour.",
+      "result": "PASS"
+    },
+    {
+      "input": "Cách đặt tour trên website như thế nào?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ bạn chọn tour muốn đi, nhấn 'Đặt tour', điền thông tin người đi và thông tin liên hệ, sau đó tiến hành thanh toán qua PayOS (mã QR ngân hàng) hoặc tiền mặt để hoàn tất đơn đặt.",
+      "result": "PASS"
+    },
+    {
+      "input": "Website này thanh toán qua những cổng nào?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ hệ thống hỗ trợ thanh toán trực tuyến qua cổng thanh toán PayOS (quét mã QR VietQR hỗ trợ tất cả ngân hàng Việt Nam) hoặc thanh toán trực tiếp tại văn phòng bằng tiền mặt.",
+      "result": "PASS"
+    },
+    {
+      "input": "Có thanh toán qua PayOS được không?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ được ạ! Hệ thống tích hợp trực tiếp cổng PayOS, cho phép bạn chuyển khoản nhanh qua mã QR hiển thị ngay sau khi đặt đơn hàng, giao dịch xác nhận tự động sau 3 giây.",
+      "result": "PASS"
+    },
+    {
+      "input": "Làm sao để hủy đơn đặt tour?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Để hủy đơn đặt tour, bạn vui lòng liên hệ hotline CSKH hoặc chat trực tiếp với nhân viên hỗ trợ ở góc phải màn hình, cung cấp Mã Đơn Hàng (ORD...) để được hỗ trợ nhanh nhất.",
+      "result": "PASS"
+    },
+    {
+      "input": "Tôi muốn xem cẩm nang du lịch Đà Nẵng",
+      "expected_intent": "search_articles",
+      "actual_intent": "search_articles",
+      "actual_response": "Dạ mình tìm thấy bài viết 'Cẩm nang du lịch Đà Nẵng tự túc từ A đến Z' với các thông tin về điểm ăn chơi, đi lại cực chi tiết. Bạn xem bài viết tại /articles/cam-nang-du-lich-da-nang.",
+      "result": "PASS"
+    },
+    {
+      "input": "Xem bài viết về kinh nghiệm đi Sapa",
+      "expected_intent": "search_articles",
+      "actual_intent": "search_articles",
+      "actual_response": "Chào bạn, bài viết 'Kinh nghiệm du lịch Sapa 3 ngày 2 đêm cực kỳ tiết kiệm' sẽ gợi ý lịch trình và địa điểm checkin siêu đẹp. Link đọc bài: /articles/kinh-nghiem-du-lich-sapa.",
+      "result": "PASS"
+    },
+    {
+      "input": "Có bài viết nào về ẩm thực Phú Quốc không?",
+      "expected_intent": "search_articles",
+      "actual_intent": "search_articles",
+      "actual_response": "Dạ có ạ, bài viết 'Top 10 món ăn đặc sản Phú Quốc nhất định phải thử' tổng hợp các địa chỉ quán ăn ngon nổi tiếng. Bạn đọc chi tiết tại /articles/top-dac-san-phu-quoc.",
+      "result": "PASS"
+    },
+    {
+      "input": "Đọc tin tức du lịch mới nhất",
+      "expected_intent": "search_articles",
+      "actual_intent": "search_articles",
+      "actual_response": "Dạ mình gợi ý bài viết 'Xu hướng du lịch hè 2026: Trải nghiệm du thuyền vịnh Lan Hạ lên ngôi' vừa cập nhật tuần này. Link bài viết: /articles/xu-huong-du-lich-he-2026.",
+      "result": "PASS"
+    },
+    {
+      "input": "Tìm bài viết hướng dẫn đi du lịch bụi",
+      "expected_intent": "search_articles",
+      "actual_intent": "search_articles",
+      "actual_response": "Chào bạn, mời bạn tham khảo bài viết 'Kinh nghiệm chuẩn bị đồ phượt và đi du lịch bụi an toàn cho người mới bắt đầu' tại đường dẫn /articles/kinh-nghiem-phuot-cho-nguoi-moi.",
+      "result": "PASS"
+    },
+    {
+      "input": "Bài viết về địa điểm checkin Đà Lạt",
+      "expected_intent": "search_articles",
+      "actual_intent": "search_articles",
+      "actual_response": "Dạ bài viết 'Tọa độ 15 điểm check-in sống ảo cực hot tại Đà Lạt năm 2026' sẽ chỉ đường chi tiết cho bạn. Xem ngay tại /articles/toa-do-checkin-da-lat.",
+      "result": "PASS"
+    },
+    {
+      "input": "Kinh nghiệm đặt phòng khách sạn giá rẻ",
+      "expected_intent": "search_articles",
+      "actual_intent": "search_articles",
+      "actual_response": "Dạ mời bạn xem bài viết 'Mẹo đặt phòng khách sạn giá rẻ trực tuyến và tránh các bẫy phụ phí' của cẩm nang du lịch tại /articles/meo-dat-phong-khach-san.",
+      "result": "PASS"
+    },
+    {
+      "input": "Thông tin thời tiết Sapa mùa này",
+      "expected_intent": "search_articles",
+      "actual_intent": "search_articles",
+      "actual_response": "Dạ bài viết 'Du lịch Sapa mùa hè: Cập nhật tình hình thời tiết và mẹo chọn trang phục phù hợp' có tại đường dẫn /articles/thoi-tiet-sapa-mua-he.",
+      "result": "PASS"
+    },
+    {
+      "input": "Đăng ký tài khoản mới như thế nào?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ bạn click vào biểu tượng tài khoản ở góc trên bên phải trang web, chọn 'Đăng ký', điền thông tin Họ tên, Email, Mật khẩu và Số điện thoại rồi nhấn nút để hoàn tất tạo tài khoản.",
+      "result": "PASS"
+    },
+    {
+      "input": "Làm sao để đổi mật khẩu tài khoản?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ sau khi đăng nhập, bạn truy cập trang 'Thông tin cá nhân' (đường dẫn /profile), chọn mục 'Đổi mật khẩu', nhập mật khẩu hiện tại cùng mật khẩu mới rồi bấm Lưu lại.",
+      "result": "PASS"
+    },
+    {
+      "input": "Tôi bị quên mật khẩu thì phải làm sao?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ tại trang đăng nhập, bạn chọn link 'Quên mật khẩu?', nhập địa chỉ email đã đăng ký. Hệ thống sẽ gửi mã OTP xác nhận về email của bạn để tiến hành tạo lại mật khẩu mới.",
+      "result": "PASS"
+    },
+    {
+      "input": "Liên hệ với admin qua đâu?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ bạn có thể chat trực tiếp với nhân viên qua box chat Socket.io ở góc dưới cùng bên phải, hoặc liên hệ qua email support@tourmanage.com và số hotline hiển thị dưới chân trang web.",
+      "result": "PASS"
+    },
+    {
+      "input": "Số điện thoại hỗ trợ của công ty là gì?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ số điện thoại hỗ trợ chăm sóc khách hàng của công ty lữ hành là 1900-6088 (hoạt động từ 8:00 đến 21:00 hàng ngày kể cả ngày lễ).",
+      "result": "PASS"
+    },
+    {
+      "input": "Văn phòng công ty ở đâu?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ văn phòng chính của công ty nằm tại địa chỉ: Số 12 Khuất Duy Tiến, quận Thanh Xuân, Hà Nội. Bạn có thể qua trực tiếp để giao dịch ký hợp đồng đặt tour.",
+      "result": "PASS"
+    },
+    {
+      "input": "Có cần đặt cọc trước khi đi tour không?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ để giữ chỗ chắc chắn cho lịch trình của bạn, quý khách vui lòng hoàn tất đặt cọc tối thiểu 50% giá trị tour sau khi đặt đơn, và thanh toán nốt 50% còn lại trước ngày khởi hành 3 ngày.",
+      "result": "PASS"
+    },
+    {
+      "input": "Trẻ em có được giảm giá vé tour không?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ có ạ! Trẻ em dưới 2 tuổi được miễn phí vé tour (chỉ tính phụ thu phát sinh nếu có), trẻ từ 2 - 9 tuổi được giảm 30% đến 50% đơn giá tùy theo quy định của từng tour cụ thể.",
+      "result": "PASS"
+    },
+    {
+      "input": "Tour ghép đoàn là gì?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ tour ghép đoàn là tour được tổ chức cho nhiều khách lẻ từ các nhóm khác nhau cùng tham gia chung một hành trình, giúp tối ưu hóa chi phí đi lại, hướng dẫn viên và dịch vụ ăn uống.",
+      "result": "PASS"
+    },
+    {
+      "input": "Kinh nghiệm du lịch tự túc Nha Trang",
+      "expected_intent": "search_articles",
+      "actual_intent": "search_articles",
+      "actual_response": "Dạ mình tìm thấy bài viết 'Cẩm nang du lịch Nha Trang tự túc' với thông tin hữu ích về chỗ nghỉ và ăn chơi. Bạn đọc tại /articles/cam-nang-du-lich-nha-trang.",
+      "result": "PASS"
+    },
+    {
+      "input": "Tour đi Nhật Bản có bao gồm visa không?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ thông thường các tour đi Nhật Bản trọn gói của công ty đã bao gồm chi phí và thủ tục xin visa du lịch. Vui lòng liên hệ Hotline 1900-6088 để được hỗ trợ cụ thể về hồ sơ.",
+      "result": "PASS"
+    },
+    {
+      "input": "Chính sách hoàn tiền khi hủy tour?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ theo chính sách của công ty, bạn được hỗ trợ hủy đơn đặt tour chưa thanh toán trực tiếp trên website. Với các đơn hàng đã thanh toán, vui lòng liên hệ Hotline 1900-6088 hoặc Live Chat để hoàn tiền theo quy định.",
+      "result": "PASS"
+    },
+    {
+      "input": "Có hỗ trợ xe đưa đón tận nơi không?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ hầu hết các tour du lịch trọn gói bên mình đều bao gồm xe du lịch đưa đón từ điểm hẹn quy định. Để hỗ trợ xe đón tận nhà/khách sạn, vui lòng liên hệ Hotline 1900-6088.",
+      "result": "PASS"
+    },
+    {
+      "input": "Thời gian làm việc của tổng đài?",
+      "expected_intent": "general_chat",
+      "actual_intent": "general_chat",
+      "actual_response": "Dạ tổng đài chăm sóc khách hàng 1900-6088 hoạt động từ 8:00 đến 21:00 hàng ngày, bao gồm cả các ngày lễ tết.",
+      "result": "PASS"
+    },
+    {
+      "input": "Hướng dẫn chuẩn bị hành lý đi leo núi",
+      "expected_intent": "search_articles",
+      "actual_intent": "search_articles",
+      "actual_response": "Dạ mời bạn xem bài viết 'Kinh nghiệm chuẩn bị đồ phượt và đi du lịch bụi' chia sẻ chi tiết mẹo chuẩn bị hành lý đi leo núi tại đường dẫn /articles/kinh-nghiem-phuot-cho-nguoi-moi.",
+      "result": "PASS"
+    },
+    {
+      "input": "Tìm tour đi Singapore giá rẻ",
+      "expected_intent": "search_tours",
+      "actual_intent": "search_tours",
+      "actual_response": "Chào bạn, mình gợi ý 'Tour mua sắm Singapore - Malaysia trọn gói' (5 ngày 4 đêm) giá ưu đãi tốt nhất chỉ 12.500.000 VNĐ. Lịch trình chi tiết tại /tours/detail/tour-mua-sam-singapore-malaysia-tron-goi.",
+      "result": "PASS"
+    }
+  ]
+}
