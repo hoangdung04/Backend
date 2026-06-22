@@ -47,9 +47,13 @@ const server = http.createServer(app);
 // 4. KHỞI TẠO SOCKET.IO (CHAT REAL-TIME)
 // ==========================================
 // Khởi tạo Socket.io và gắn vào HTTP Server
+const originAllowed = process.env.CLIENT_URL 
+  ? [process.env.CLIENT_URL, "http://localhost:5173", "http://localhost:3000", "http://localhost:3001"] 
+  : "*";
+
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173", // Rất quan trọng: Mở khóa CORS cho React (chạy cổng 5173) để nó có thể kết nối Socket
+    origin: originAllowed,
     methods: ["GET", "POST"]
   }
 });
