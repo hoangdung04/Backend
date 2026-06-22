@@ -78,6 +78,10 @@ chatSocket(io);
 app.use("/api/admin", adminRoutes);
 app.use("/api", clientRoutes);
 
+app.get("/", (req, res) => {
+  res.send("API Server is running successfully!");
+});
+
 // ==========================================
 // 9. XỬ LÝ LỖI (ERROR HANDLING)
 // ==========================================
