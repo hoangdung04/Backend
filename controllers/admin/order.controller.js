@@ -317,10 +317,12 @@ export const exportExcel = async (req, res) => {
 
     // 4. THÊM DỮ LIỆU CÁC DÒNG
     let indexNo = 1;
+    let totalRevenueSum = 0;
     for (const order of orders) {
       const stat = orderStats.find((s) => s.orderId === order.id);
       const totalTours = stat ? stat.totalTours : 0;
       const totalPrice = stat ? Number(stat.total_price || 0) : 0;
+      totalRevenueSum += totalPrice;
 
       const row = worksheet.addRow([
         indexNo++,
@@ -371,11 +373,53 @@ export const exportExcel = async (req, res) => {
       });
     }
 
-    // 5. TỰ ĐỘNG GIÃN RỘNG CỘT CHO KHỚP DỮ LIỆU (bỏ qua dòng tiêu đề merge A2, A3)
+    // 4.1. THÊM DÒNG TỔNG CỘNG
+    const totalRow = worksheet.addRow([
+      "Tổng cộng",
+      "",
+      "",
+      "",
+      "",
+      totalRevenueSum,
+      "",
+      "",
+      "",
+      ""
+    ]);
+    totalRow.height = 24;
+    worksheet.mergeCells(totalRow.number, 1, totalRow.number, 5);
+
+    totalRow.eachCell((cell, colNumber) => {
+      cell.font = { name: "Arial", size: 10, bold: true };
+      cell.border = {
+        top: { style: "thin", color: { argb: "FFCCCCCC" } },
+        left: { style: "thin", color: { argb: "FFCCCCCC" } },
+        bottom: { style: "double", color: { argb: "FF000000" } }, // Dòng kẻ đôi ở dưới tổng số tiền
+        right: { style: "thin", color: { argb: "FFCCCCCC" } },
+      };
+
+      if (colNumber === 1) {
+        cell.alignment = { vertical: "middle", horizontal: "right" };
+      } else if (colNumber === 6) {
+        cell.numFmt = '#,##0"đ"';
+        cell.alignment = { vertical: "middle", horizontal: "right" };
+      } else {
+        cell.alignment = { vertical: "middle", horizontal: "center" };
+      }
+
+      cell.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "FFEAEAEA" }, // Nền xám nhạt cho dòng tổng cộng
+      };
+    });
+
+    // 5. TỰ ĐỘNG GIÃN RỘNG CỘT CHO KHỚP DỮ LIỆU (bỏ qua dòng tiêu đề merge A2, A3 và dòng tổng cộng merge)
     worksheet.columns.forEach((column, index) => {
       let maxLen = colWidths[index] || 10;
       column.eachCell({ includeRowHeader: false }, (cell) => {
         if (cell.row < 5) return; // Bỏ qua tiêu đề merge để tránh co giãn sai
+        if (cell.row === totalRow.number) return; // Bỏ qua hàng Tổng cộng để tránh co giãn sai cho các cột thuộc ô merge
         const valStr = cell.value ? String(cell.value) : "";
         if (valStr.length > maxLen) {
           maxLen = valStr.length;
