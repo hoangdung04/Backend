@@ -142,6 +142,7 @@ export const analyzeQuestionFallback = (question) => {
     "gợi", "goi", "ý", "y", "tư", "tu", "vấn", "van",
     "đặt", "dat", "mua", "book", "booking",
     "còn", "con", "chỗ", "cho", "trống", "trong", "vé", "ve", "khách", "khach",
+    "nhất", "nhat", "nhứt", "nhut", "thấp", "thap", "đắt", "dat", "max", "min", "hơn", "hon",
     // Từ chỉ đối tượng/nhân khẩu - KHÔNG phải địa danh, loại bỏ để tránh khớp nhầm SQL LIKE
     "trẻ", "tre", "nhỏ", "nho", "già", "người", "nguoi", "tuổi", "tuoi",
     "cao", "bầu", "bau", "sức", "suc", "khỏe", "khoe",
@@ -242,9 +243,12 @@ export const analyzeQuestionFallback = (question) => {
   keywords = [...new Set(keywords)];
 
   let sortBy = null;
-  if (lower.includes("rẻ") || lower.includes("thấp") || lower.includes("tiết kiệm") || lower.includes("bình dân") || lower.includes("gia re") || lower.includes("tiet kiem")) {
+  const ascKeywords = ["rẻ", "thấp", "tiết kiệm", "bình dân", "gia re", "tiet kiem", "rẻ nhất", "re nhat", "thấp nhất", "thap nhat"];
+  const descKeywords = ["vip", "cao cấp", "sang trọng", "thượng lưu", "đắt", "xa xỉ", "cao nhất", "cao nhat", "đắt nhất", "dat nhat", "max"];
+  
+  if (ascKeywords.some(kw => lower.includes(kw))) {
     sortBy = "price_asc";
-  } else if (lower.includes("vip") || lower.includes("cao cấp") || lower.includes("sang trọng") || lower.includes("thượng lưu") || lower.includes("đắt") || lower.includes("xa xỉ")) {
+  } else if (descKeywords.some(kw => lower.includes(kw))) {
     sortBy = "price_desc";
   }
 
@@ -269,10 +273,10 @@ export const analyzeQuestion = async (question, history = []) => {
 
 Định dạng JSON cần trả về:
 {
-  "keywords": ["từ_khóa_1", "từ_khóa_2", ...], // Danh sách các từ khóa tìm kiếm (địa danh, tên tour, hoạt động). Hãy tách từ khóa chi tiết, ví dụ "Đà Nẵng" -> ["Đà Nẵng", "Đà", "Nẵng"] hoặc "Sapa" -> ["Sapa", "Sa", "Pa"] để dễ khớp SQL LIKE. Loại bỏ hoàn toàn các từ dừng chung chung và các từ nghi vấn hoặc hỏi số lượng/còn trống như "tìm", "tour", "du lịch", "giá", "vé", "bao nhiêu", "có", "mình", "cần", "cho", "hỏi", "còn", "con", "chỗ", "cho", "trống", "không", "khong"...
+  "keywords": ["từ_khóa_1", "từ_khóa_2", ...], // Danh sách các từ khóa tìm kiếm (địa danh, tên tour, hoạt động). Hãy tách từ khóa chi tiết, ví dụ "Đà Nẵng" -> ["Đà Nẵng", "Đà", "Nẵng"] hoặc "Sapa" -> ["Sapa", "Sa", "Pa"] để dễ khớp SQL LIKE. Loại bỏ hoàn toàn các từ dừng chung chung, các từ so sánh/mức độ như "cao", "thấp", "nhất", "rẻ", "đắt", "nhất", "nhat" và các từ nghi vấn hoặc hỏi số lượng/còn trống như "tìm", "tour", "du lịch", "giá", "vé", "bao nhiêu", "có", "mình", "cần", "cho", "hỏi", "còn", "con", "chỗ", "cho", "trống", "không", "khong"...
   "priceMin": null || số_nguyên, // Giá tối thiểu (VNĐ), hoặc null nếu không có
   "priceMax": null || số_nguyên, // Giá tối đa (VNĐ), hoặc null nếu không có
-  "sortBy": null || "price_asc" || "price_desc", // "price_asc" nếu khách hàng muốn tìm giá rẻ, giá thấp, tiết kiệm, bình dân; "price_desc" nếu khách hàng yêu cầu cao cấp, sang trọng, xa xỉ, vip, đắt tiền; hoặc null nếu không yêu cầu.
+  "sortBy": null || "price_asc" || "price_desc", // "price_asc" nếu khách hàng muốn tìm giá rẻ, giá thấp, tiết kiệm, bình dân, rẻ nhất, thấp nhất; "price_desc" nếu khách hàng yêu cầu cao cấp, sang trọng, xa xỉ, vip, đắt tiền, cao nhất, đắt nhất; hoặc null nếu không yêu cầu.
   "intent": "search_tours" || "search_articles" || "general_chat" || "book_tour" // "search_tours" nếu khách tìm tour, tư vấn tour; "search_articles" nếu khách hỏi về cẩm nang, kinh nghiệm đi lại, đọc bài viết du lịch, kinh nghiệm tự túc, hướng dẫn chuẩn bị đồ/hành lý; "general_chat" nếu khách chào hỏi, hỏi thông tin/chính sách chung của web (như thanh toán, hủy đơn, đăng ký, đăng nhập), hỏi về dịch vụ đi kèm chung của công ty (visa, xe đưa đón tận nơi), hoặc hỏi chuyện phiếm/thời tiết ngoài lề; "book_tour" nếu khách muốn đặt tour, đặt mua, đăng ký đi tour cụ thể (ví dụ: "đặt tour này", "book tour", "muốn mua tour này").
 }
 
