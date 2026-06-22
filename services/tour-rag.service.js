@@ -142,7 +142,7 @@ export const analyzeQuestionFallback = (question) => {
     "gợi", "goi", "ý", "y", "tư", "tu", "vấn", "van",
     "đặt", "dat", "mua", "book", "booking",
     "còn", "con", "chỗ", "cho", "trống", "trong", "vé", "ve", "khách", "khach",
-    "nhất", "nhat", "nhứt", "nhut", "thấp", "thap", "đắt", "dat", "max", "min", "hơn", "hon",
+    "nhất", "nhat", "nhứt", "nhut", "thấp", "thap", "đắt", "dat", "max", "min", "hơn", "hon", "ngày", "ngay", "đêm", "dem", "ngay/đem", "ngày/đêm",
     // Từ chỉ đối tượng/nhân khẩu - KHÔNG phải địa danh, loại bỏ để tránh khớp nhầm SQL LIKE
     "trẻ", "tre", "nhỏ", "nho", "già", "người", "nguoi", "tuổi", "tuoi",
     "cao", "bầu", "bau", "sức", "suc", "khỏe", "khoe",
@@ -252,7 +252,13 @@ export const analyzeQuestionFallback = (question) => {
     sortBy = "price_desc";
   }
 
-  return { keywords, priceMin, priceMax, sortBy, intent };
+  let duration = null;
+  const durationMatch = lower.match(/(\d+)\s*(?:ngày|ngay|n)/);
+  if (durationMatch) {
+    duration = parseInt(durationMatch[1]);
+  }
+
+  return { keywords, priceMin, priceMax, sortBy, duration, intent };
 };
 
 /**
@@ -273,10 +279,11 @@ export const analyzeQuestion = async (question, history = []) => {
 
 Định dạng JSON cần trả về:
 {
-  "keywords": ["từ_khóa_1", "từ_khóa_2", ...], // Danh sách các từ khóa tìm kiếm (địa danh, tên tour, hoạt động). Hãy tách từ khóa chi tiết, ví dụ "Đà Nẵng" -> ["Đà Nẵng", "Đà", "Nẵng"] hoặc "Sapa" -> ["Sapa", "Sa", "Pa"] để dễ khớp SQL LIKE. Loại bỏ hoàn toàn các từ dừng chung chung, các từ so sánh/mức độ như "cao", "thấp", "nhất", "rẻ", "đắt", "nhất", "nhat" và các từ nghi vấn hoặc hỏi số lượng/còn trống như "tìm", "tour", "du lịch", "giá", "vé", "bao nhiêu", "có", "mình", "cần", "cho", "hỏi", "còn", "con", "chỗ", "cho", "trống", "không", "khong"...
+  "keywords": ["từ_khóa_1", "từ_khóa_2", ...], // Danh sách các từ khóa tìm kiếm (địa danh, tên tour, hoạt động). Hãy tách từ khóa chi tiết, ví dụ "Đà Nẵng" -> ["Đà Nẵng", "Đà", "Nẵng"] hoặc "Sapa" -> ["Sapa", "Sa", "Pa"] để dễ khớp SQL LIKE. Loại bỏ hoàn toàn các từ dừng chung chung, các từ so sánh/mức độ như "cao", "thấp", "nhất", "rẻ", "đắt", "nhất", "nhat" hoặc từ chỉ đơn vị thời gian như "ngày", "ngay", "đêm", "dem", "ngày/đêm" và các từ nghi vấn hoặc hỏi số lượng/còn trống như "tìm", "tour", "du lịch", "giá", "vé", "bao nhiêu", "có", "mình", "cần", "cho", "hỏi", "còn", "con", "chỗ", "cho", "trống", "không", "khong"...
   "priceMin": null || số_nguyên, // Giá tối thiểu (VNĐ), hoặc null nếu không có
   "priceMax": null || số_nguyên, // Giá tối đa (VNĐ), hoặc null nếu không có
   "sortBy": null || "price_asc" || "price_desc", // "price_asc" nếu khách hàng muốn tìm giá rẻ, giá thấp, tiết kiệm, bình dân, rẻ nhất, thấp nhất; "price_desc" nếu khách hàng yêu cầu cao cấp, sang trọng, xa xỉ, vip, đắt tiền, cao nhất, đắt nhất; hoặc null nếu không yêu cầu.
+  "duration": null || số_nguyên, // Số ngày mong muốn của tour (ví dụ: "3 ngày" -> 3, "5 ngày 4 đêm" -> 5, "tour đi 2 ngày" -> 2), hoặc null nếu không có
   "intent": "search_tours" || "search_articles" || "general_chat" || "book_tour" // "search_tours" nếu khách tìm tour, tư vấn tour; "search_articles" nếu khách hỏi về cẩm nang, kinh nghiệm đi lại, đọc bài viết du lịch, kinh nghiệm tự túc, hướng dẫn chuẩn bị đồ/hành lý; "general_chat" nếu khách chào hỏi, hỏi thông tin/chính sách chung của web (như thanh toán, hủy đơn, đăng ký, đăng nhập), hỏi về dịch vụ đi kèm chung của công ty (visa, xe đưa đón tận nơi), hoặc hỏi chuyện phiếm/thời tiết ngoài lề; "book_tour" nếu khách muốn đặt tour, đặt mua, đăng ký đi tour cụ thể (ví dụ: "đặt tour này", "book tour", "muốn mua tour này").
 }
 
@@ -445,7 +452,7 @@ JSON:`;
  * @returns {Promise<Array>} - Danh sách tour phù hợp (tối đa 5)
  */
 export const searchTours = async (analysis) => {
-  let { keywords, priceMin, priceMax, sortBy } = analysis;
+  let { keywords, priceMin, priceMax, sortBy, duration } = analysis;
 
   // Lọc bỏ các từ khóa đơn là substring của từ khóa dài hơn (ví dụ: 'Cat', 'Ba' khi đã có 'Cat Ba')
   // Và lọc bỏ các từ khóa quá ngắn (<= 2 ký tự) để tránh so khớp nhầm các từ ngữ chung dưới SQL
@@ -493,8 +500,36 @@ export const searchTours = async (analysis) => {
 
   const whereSQL = whereClauses.join(" AND ");
 
-  // Sắp xếp: ưu tiên xếp theo giá trước nếu khách hàng yêu cầu (giá rẻ / cao cấp)
+  // Sắp xếp: ưu tiên xếp theo số ngày trùng khớp trước (nếu người dùng yêu cầu số ngày cụ thể)
   let orderSQL = "";
+  if (duration) {
+    const nextDuration = duration + 1;
+    const paramDuration = `duration_ngay_${duration}`;
+    const paramNextDuration = `duration_ngay_${nextDuration}`;
+    replacements[paramDuration] = `%ngay ${duration}%`;
+    replacements[paramNextDuration] = `%ngay ${nextDuration}%`;
+
+    const titleDur1 = `%${duration} ngay%`;
+    const titleDur2 = `%${duration}n%`;
+    replacements[`title_dur1`] = titleDur1;
+    replacements[`title_dur2`] = titleDur2;
+
+    // Phạt các tour ghi số ngày khác trong tiêu đề để tránh lệch thông tin với lịch trình
+    let penaltySQL = "";
+    for (let d = 1; d <= 10; d++) {
+      if (d !== duration) {
+        const paramBadTitle1 = `bad_title_dur1_${d}`;
+        const paramBadTitle2 = `bad_title_dur2_${d}`;
+        replacements[paramBadTitle1] = `%${d} ngay%`;
+        replacements[paramBadTitle2] = `%${d}n%`;
+        penaltySQL += ` - (CASE WHEN t.title_no_accent LIKE :${paramBadTitle1} OR t.title_no_accent LIKE :${paramBadTitle2} THEN 30 ELSE 0 END)`;
+      }
+    }
+
+    orderSQL += `((CASE WHEN t.schedule_no_accent LIKE :${paramDuration} AND t.schedule_no_accent NOT LIKE :${paramNextDuration} THEN 20 ELSE 0 END + CASE WHEN t.title_no_accent LIKE :title_dur1 OR t.title_no_accent LIKE :title_dur2 THEN 15 ELSE 0 END)${penaltySQL}) DESC, `;
+  }
+
+  // Sắp xếp: ưu tiên xếp theo giá trước nếu khách hàng yêu cầu (giá rẻ / cao cấp)
   if (sortBy === "price_asc") {
     orderSQL += "ROUND(t.price * (1 - t.discount / 100)) ASC, ";
   } else if (sortBy === "price_desc") {
@@ -519,7 +554,7 @@ export const searchTours = async (analysis) => {
     FROM tours t
     WHERE ${whereSQL}
     ORDER BY ${orderSQL}
-    LIMIT 1
+    LIMIT 5
   `;
 
   const tours = await sequelize.query(query, {

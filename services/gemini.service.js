@@ -28,7 +28,7 @@ export const askGemini = async (prompt) => {
     ],
     tools: [
       {
-        google_search: {}
+        googleSearch: {}
       }
     ],
     generationConfig: {
