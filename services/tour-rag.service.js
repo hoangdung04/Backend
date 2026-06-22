@@ -258,7 +258,13 @@ export const analyzeQuestionFallback = (question) => {
     duration = parseInt(durationMatch[1]);
   }
 
-  return { keywords, priceMin, priceMax, sortBy, duration, intent };
+  let limit = 5;
+  const isExtreme = ["nhất", "nhat", "nhứt", "nhut", "max", "min"].some(w => lower.includes(w));
+  if (isExtreme && (sortBy === "price_asc" || sortBy === "price_desc")) {
+    limit = 1;
+  }
+
+  return { keywords, priceMin, priceMax, sortBy, duration, intent, limit };
 };
 
 /**
@@ -437,6 +443,15 @@ JSON:`;
     if (!result.intent) {
       result.intent = "search_tours";
     }
+
+    // Hậu xử lý (Post-process) cực trị: nếu hỏi "nhất/max/min" thì giới hạn limit = 1
+    const lowerQ = question.toLowerCase();
+    const isExtreme = ["nhất", "nhat", "nhứt", "nhut", "max", "min"].some(w => lowerQ.includes(w));
+    if (isExtreme && (result.sortBy === "price_asc" || result.sortBy === "price_desc")) {
+      result.limit = 1;
+    } else {
+      result.limit = 5;
+    }
     
     console.log("🤖 AI Query Parser thành công:", result);
     return result;
@@ -452,7 +467,7 @@ JSON:`;
  * @returns {Promise<Array>} - Danh sách tour phù hợp (tối đa 5)
  */
 export const searchTours = async (analysis) => {
-  let { keywords, priceMin, priceMax, sortBy, duration } = analysis;
+  let { keywords, priceMin, priceMax, sortBy, duration, limit } = analysis;
 
   // Lọc bỏ các từ khóa đơn là substring của từ khóa dài hơn (ví dụ: 'Cat', 'Ba' khi đã có 'Cat Ba')
   // Và lọc bỏ các từ khóa quá ngắn (<= 2 ký tự) để tránh so khớp nhầm các từ ngữ chung dưới SQL
@@ -546,6 +561,7 @@ export const searchTours = async (analysis) => {
 
   orderSQL += "t.discount DESC, t.createdAt DESC";
 
+  const queryLimit = limit === 1 ? 1 : 5;
   const query = `
     SELECT
       t.id, t.title, t.slug, t.price, t.discount, t.stock,
@@ -554,7 +570,7 @@ export const searchTours = async (analysis) => {
     FROM tours t
     WHERE ${whereSQL}
     ORDER BY ${orderSQL}
-    LIMIT 5
+    LIMIT ${queryLimit}
   `;
 
   const tours = await sequelize.query(query, {
