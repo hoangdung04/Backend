@@ -22,6 +22,7 @@ const Role = sequelize.define("Role", {
   // Mảng permissions lưu dạng JSON string, ví dụ: '["tours_view","tours_create"]'
   permissions: {
     type: DataTypes.TEXT("long"),
+    defaultValue: "[]",
     get() {
       const raw = this.getDataValue("permissions");
       try {

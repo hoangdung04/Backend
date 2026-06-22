@@ -146,14 +146,14 @@ export const index = async (req, res) => {
           checksumKey: process.env.PAYOS_CHECKSUM_KEY,
         });
 
-        const origin = req.headers.origin || "http://localhost:5173";
         const payosOrderCode = orderId * 10000 + (Date.now() % 10000);
+
         const paymentData = {
           orderCode: payosOrderCode,
           amount: totalAmount,
           description: `Thanh toan don ${code}`.slice(0, 25),
-          cancelUrl: `${origin}/order/history`,
-          returnUrl: `${origin}/order/success?orderCode=${code}`,
+          cancelUrl: `${process.env.CLIENT_URL}/order/history`,
+          returnUrl: `${process.env.CLIENT_URL}/order/success?orderCode=${code}`,
         };
 
         const paymentLink = await payos.paymentRequests.create(paymentData);
@@ -592,13 +592,12 @@ export const createPaymentLink = async (req, res) => {
     // Format: orderId * 10000 + 4 chữ số cuối timestamp → đảm bảo unique
     const payosOrderCode = order.id * 10000 + (Date.now() % 10000);
 
-    const origin = req.headers.origin || "http://localhost:5173";
     const paymentData = {
       orderCode: payosOrderCode,
       amount: totalAmount,
       description: `Thanh toan don ${order.code}`.slice(0, 25),
-      cancelUrl: `${origin}/order/history`,
-      returnUrl: `${origin}/order/success?orderCode=${order.code}`,
+      cancelUrl: `${process.env.CLIENT_URL}/order/history`,
+      returnUrl: `${process.env.CLIENT_URL}/order/success?orderCode=${order.code}`,
     };
 
     const paymentLinkRes = await payos.paymentRequests.create(paymentData);

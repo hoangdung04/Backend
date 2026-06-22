@@ -3,11 +3,11 @@ import { QueryTypes } from "sequelize";
 
 async function main() {
   try {
-    const tours = await sequelize.query("SELECT id, title, slug, stock FROM tours WHERE deleted = false AND status = 'active'", {
+    const tour = await sequelize.query("SELECT id, title, title_no_accent, information, schedule FROM tours WHERE id = 37", {
       type: QueryTypes.SELECT
     });
-    console.log("Active Tours in Database:");
-    console.table(tours);
+    console.log("Tour 37 details:");
+    console.log(JSON.stringify(tour, null, 2));
   } catch (error) {
     console.error("Error:", error.message);
   } finally {
